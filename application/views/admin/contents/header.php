@@ -29,15 +29,15 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile">
               <li>
-                <a href="/profile">
+                <a href="<?php echo base_url(); ?>profile">
                   <i class="lni lni-user"></i> प्रोफाइल पहा
                 </a>
               </li>
               <li>
-                <a href="/settings"> <i class="lni lni-cog"></i> सेटिंग्ज </a>
+                <a href="<?php echo base_url(); ?>settings"> <i class="lni lni-cog"></i> सेटिंग्ज </a>
               </li>
               <li>
-                <a href="/"> <i class="lni lni-exit"></i> लॉगऑऊट </a>
+                <a href="<?php echo base_url(); ?>dashboard/logout"> <i class="lni lni-exit"></i> लॉगऑऊट </a>
               </li>
             </ul>
           </div>

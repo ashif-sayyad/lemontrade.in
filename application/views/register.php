@@ -108,7 +108,8 @@
       }
     };
     $(document).ready(function() {
-      $("#registerbtn").click(function() {
+      $("#registerbtn").click(function() {        
+				$('#res').html("<img width='25' src='<?php echo base_url(); ?>mypanel/assets/img/loading.gif'>");
         $firstname = $("#firstname").val();
         $lastname = $("#lastname").val();
         $email = $("#email").val();
@@ -139,7 +140,7 @@
             },
             function(data) {
               if (data == 1) {
-                $('#res').html("<span style='color:green;text-transform:capitalize;font-size:12px'> लेमन ट्रेडिंग कंपनीत यशस्वीरित्या नोंदणीकृत आहात.</span><br><span style='font-size:12px'>पुनर्निर्देशित करत आहे...</span>");
+                $('#res').html("<span style='color:green;text-transform:capitalize;font-size:12px'> लेमन ट्रेडिंग कंपनीत यशस्वीरित्या नोंदणीकृत आहात.</span><br><img width='25' src='<?php echo base_url(); ?>mypanel/assets/img/loading.gif'><br><span style='font-size:12px'>पुनर्निर्देशित करत आहे...</span>");
                 window.location="<?php echo base_url(); ?>login";
               } else {
                 $('#res').html("<span style='color:red;text-transform:capitalize;font-size:12px'>नोंदणी करताना त्रुटी.</span>");
