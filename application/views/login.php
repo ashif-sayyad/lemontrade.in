@@ -34,17 +34,18 @@
 												<span class="titlename font-sans-serif fw-bolder fs-5 d-inline-block">लेमन ट्रेडिंग कंपनी</span>
 											</span>
 											<h6>लॉगिन</h6>
+											<div id="res"></div>
 										</div>
 									</header>
 									<div id="login-box-inner">
 										<form method="post" action="<?php echo base_url() . 'login'; ?>">
 											<div class="input-group">
 												<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-												<input class="form-control" type="text" placeholder="Mobile" autocomplete="off" name="mobile" id="mobile">
+												<input class="form-control" type="text" placeholder="मोबाईल" autocomplete="off" name="mobile" id="mobile">
 											</div>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="fa fa-key"></i></span>
-												<input type="password" class="form-control" placeholder="Password" autocomplete="off" name="password" id="password">
+												<input type="password" class="form-control" placeholder="पासवर्ड" autocomplete="off" name="password" id="password">
 											</div>
 											<div class="row">
 												<div class="col-xs-12">
@@ -79,55 +80,48 @@
 
 	<script src="<?php echo base_url(); ?>ca/js/jquery-2.2.4.min.js"></script>
 	<script>
+		function ValidateMobile(mobile) {
+			var filter = /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
+			if (mobile.length == 10) {
+				return filter.test(mobile);
+			} else {
+				return false;
+			}
+		};
 		$(document).ready(function() {
-			$("#loginbtn").click(function() {
-				alert('');
-				// $.post("demo_test_post.asp",
-				// {
-				//   name: "Donald Duck",
-				//   city: "Duckburg"
-				// },
-				// function(data,status){
-				//   alert("Data: " + data + "\nStatus: " + status);
-				// });
+			$('#password').keydown(function(event) {
+				if (event.keyCode == 13) {
+					$('#loginbtn').trigger('click');
+				}
+			});
+			$('#loginbtn').click(function() {
+				$('#res').html("<img width='25' src='<?php echo base_url(); ?>mypanel/assets/img/loading.gif'>");
+				$mobile = $('#mobile').val();
+				$password = $('#password').val();
+				if ($mobile == '' || $password == '') {
+					$('#res').html("<span style='color:red;text-transform:capitalize;font-size:13px'>सर्व फील्ड आवश्यक आहेत..!</span>");
+					return false;
+				} else if (!ValidateMobile($mobile)) {
+					$('#res').html("<span style='color:red;text-transform:capitalize;font-size:13px'>मोबाईल नंबर कन्फर्म करा..!</span>");
+					return false;
+				} else {
+					$('#res').html();
+					$.post('<?php echo base_url(); ?>login/validatelogin', {
+							mobile: $mobile,
+							password: $password
+						},
+						function(data) {
+							if (data == 1) {
+								$('#res').html("<span style='color:green;text-transform:capitalize;font-size:13px'>लॉगिन यशस्वी..!</span><br><img width='25' src='<?php echo base_url(); ?>mypanel/assets/img/loading.gif'><br><span style='font-size:12px'>पुनर्निर्देशित करत आहे...</span>");
+								window.location = '<?php echo base_url(); ?>dashboard';
+							} else {
+								$('#res').html("<h5><span style='color:red;text-transform:capitalize;font-size:12px'>" + data + "</span></h5>");
+							}
+						});
+				}
 			});
 		});
 	</script>
-	<script type="text/javascript">
-            $(document).ready(function() {
-                 $('#password').keydown(function(event){    
-            if(event.keyCode==13){
-               $('#loginbtn').trigger('click');
-            }
-        });
-                $('#loginbtn').click(function(){
-                   // alert("hello");
-                 $('#res').html("<img width='30' src='https://lemontrade.in/mypanel/assets/img/loading.gif'>");
-               $email = $('#email').val();
-               $password = $('#password').val();
-               if($email == '' || $password == '')
-               {
-                   //alert('Please enter all login details.');
-                    $('#res').html("<span style='color:red;text-transform:capitalize;font-size:13px'>Enter login details..!</span>");
-                   return false;
-               }
-//               $(this).attr('disabled','disabled');
-               $.post('https://lemontrade.in/Adminity/validateLogin',{ email:$email,password:$password},function(data){
-                   //alert(data);
-                  if(data==1) 
-                  {	
-                  	  $('#res').html("<h5><span style='color:green;text-transform:capitalize;font-size:13px'>Login Success..!</span><br><img width='30' src='https://lemontrade.in/mypanel/assets/img/loading.gif'><br><span style='font-size:12px'>Redirecting.....</span></h5>");
-                     // window.location="http://wegrocers.com/wegrocers-admin/";
-                          window.location="https://lemontrade.in/";
-                  }else{
-//                    
-                      $('#res').html("<h5><span style='color:red;text-transform:capitalize;font-size:12px'>"+data+"</span></h5>");
-                  }
-               });
-            });
-            });
-            
-        </script>
 
 </body>
 
