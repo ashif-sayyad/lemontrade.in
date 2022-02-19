@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
+	'hostname' => 'mysql.uk.ds.network',
+	'username' => 'cp630814_lemontrade002',
+	'password' => 'Lemontrade@password321',
 	'database' => 'lemontrade_db',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
